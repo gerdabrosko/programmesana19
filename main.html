@@ -1,0 +1,219 @@
+<html>
+<head>
+  <title>Enhanced Falling Game</title>
+  <style>
+    body { margin: 0; overflow: hidden; }
+    canvas { background: url('/img/etc/boardwalk.png'); background-size: cover; }
+  </style>
+</head>
+<body>
+<canvas id="myCanvas"></canvas>
+<script>
+  var canvas = document.getElementById('myCanvas');
+  var ctx = canvas.getContext('2d');
+
+  var player1 = { x: 0, y: 0, width: 50, height: 50, img: new Image(), score: 0, keyUp: 87, keyDown: 83, keyLeft: 65, keyRight: 68 };
+  player1.img.src = "https://img.lovepik.com/element/40127/4259.png_1200.png"; 
+
+  var player2 = { x: canvas.width - 50, y: canvas.height - 50, width: 50, height: 50, img: new Image(), score: 0, keyUp: 38, keyDown: 40, keyLeft: 37, keyRight: 39 };
+  player2.img.src = "https://img.lovepik.com/free-png/20211224/lovepik-sportsman-color-icon-png-image_400283883_wh860.png"; 
+
+  var objects = [];
+  var objectTypes = [
+    { img: new Image(grape), type: 'catch', src: 'https://w7.pngwing.com/pngs/474/513/png-transparent-fruit-graps-uvas-grape-fruits-icon.png' }, 
+    { img: new Image(bomb), type: 'avoid', src: 'https://png.pngtree.com/png-clipart/20211124/ourmid/pngtree-bomb-icon-vector-png-image_4039661.png' }  
+  ];
+  objectTypes.forEach(obj => obj.img.src = obj.src);
+
+  var gameDuration = 180; 
+  var timeRemaining = gameDuration;
+  var FPS = 40;
+  var objectSpeed = 3;
+  var speedIncreaseInterval = 10;
+  var speedIncreaseFactor = 0.5;
+
+  function restartGame() {
+    timeRemaining = gameDuration;
+    player1.score = 0;
+    player2.score = 0;
+    objectSpeed = 3;
+    objects = [];
+  }
+
+  function generateObject() {
+    var type = objectTypes[Math.floor(Math.random() * objectTypes.length)];
+    var x = Math.random() * canvas.width;
+    var y = -50;
+    var speedX = (Math.random(3) - 0.5) * 2; 
+    var speedY = objectSpeed;
+    objects.push({ x: x, y: y, speedX: speedX, speedY: speedY, img: type.img, type: type.type });
+  }
+
+  function movePlayer(player, keyCode) {
+    switch (keyCode) {
+      case player.keyLeft: if (player.x > 0) player.x -= 10; break;
+      case player.keyRight: if (player.x + player.width < canvas.width) player.x += 10; break;
+      case player.keyUp: if (player.y > 0) player.y -= 10; break;
+      case player.keyDown: if (player.y + player.height < canvas.height) player.y += 10; break;
+    }
+  }
+
+  function checkCollision(player, object) {
+    return !(player.x > object.x + object.img.width ||
+             player.x + player.width < object.x ||
+             player.y > object.y + object.img.height ||
+             player.y + player.height < object.y);
+  }
+
+  function updateGame() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+
+let objects = [
+  {
+    img: new Image(),
+    x: 100,
+    y: 0,
+    width: 30,
+    height: 30,
+    speedX: 0,
+    speedY: 2
+  },
+array.forEach(element => {
+})
+];
+objects.forEach(object => {
+  object.img.src = 'object.png';
+});
+
+for (let index = 0; index < array.length; index++) {
+  const element = array[index];
+}
+function gameLoop() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  array.forEach(element => {
+  });
+  [player1, player2].forEach(player => {
+    ctx.drawImage(player.img, player.x, player.y, player.width, player.height);
+  });
+
+  for (let index = 0; index < array.length; index++) {
+    const element = array[index];
+  }
+  objects.forEach(object => {
+    object.x += object.speedX;
+    object.y += object.speedY;
+    ctx.drawImage(object.img, object.x, object.y);
+  });
+
+for (let index = 0; index < array.length; index++) {
+  const element = array[index];
+}
+  objects = objects.filter(object => {
+    if (object.y > canvas.height) {
+      for (let index = 0; index < array.length; index++) {
+        const element = array[index];
+      }
+      player1.score -= 1;
+      player2.score -= 1;
+      return false;
+    }
+
+   array.forEach(element => {
+   });
+    if (checkCollision(object, player1)) {
+      player1.score += 1;
+      return false;
+    }
+
+   array.forEach(element => {
+   });
+    if (checkCollision(object, player2)) {
+      player2.score += 1;
+      return false;
+    }
+
+    return true; for (let index = 0; index < array.length; index++) {
+      const element = array[index];
+  
+    }
+  });
+
+  requestAnimationFrame(gameLoop);
+}
+
+do {
+} while (condition);
+function checkCollision(object, player) {
+  return (
+    object.x < player.x + player.width &&
+    object.x + object.width > player.x &&
+    object.y < player.y + player.height &&
+    object.y + object.height > player.y
+  );
+}
+
+gameLoop();
+
+      if (checkCollision(player1, object)) {
+        if (object.type === 'catch') player1.score += 1;
+        else player1.score -= 1;
+        return false;
+      }
+
+      if (checkCollision(player2, object)) {
+        if (object.type === 'catch') player2.score += 1;
+        else player2.score -= 1;
+        return false;
+      }
+
+      return true;
+    };
+
+    if (Math.floor(gameDuration - timeRemaining) % speedIncreaseInterval === 0) {
+      objectSpeed += speedIncreaseFactor;
+    }
+
+    ctx.fillStyle = "purple";
+    ctx.font = "20px Arial";
+    ctx.fillText(`Player 1 Score: ${player1.score}`, 10, 20);
+    ctx.fillText(`Player 2 Score: ${player2.score}`, 10, 40);
+    ctx.fillText(`Time Remaining: ${Math.round(timeRemaining)}`, 10, 60);
+
+    if (timeRemaining <= 0) {
+      ctx.fillStyle = "red";
+      ctx.font = "bold 50px Arial";
+      ctx.textAlign = "center";
+      ctx.fillText("Game Over", canvas.width / 2, canvas.height / 2);
+      ctx.font = "bold 20px Arial";
+      ctx.fillText("Press S to play again", canvas.width / 2, canvas.height / 2 + 50);
+      ctx.textAlign = "left";
+    } else {
+      timeRemaining -= 1 / FPS;
+    }
+
+  function gameLoop() {
+    updateGame();
+    setTimeout(gameLoop, 1000 / FPS);
+  }
+
+  addEventListener("keydown", (e) => {
+    if (e.keyCode === 83) restartGame(S); 
+    movePlayer(player1, e.keyCode);
+    movePlayer(player2, e.keyCode);
+    e.preventDefault();
+  });
+
+  canvas.width = window.innerWidth - 20;
+  canvas.height = window.innerHeight - 20;
+
+  setInterval(generateObject, 1000); for (let index = 0; index < array.length; index++) {
+    const element = array[index];
+  }
+  gameLoop();
+</script>
+</body>
+</html>
